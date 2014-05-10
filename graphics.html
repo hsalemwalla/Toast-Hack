@@ -14,11 +14,11 @@
 			</div>
 
 			<div id="left-container" width="420px" height="420px">
-				<canvas id="canvas" width="400px" height="400px"></canvas>
+				<canvas id="gridCanvas" width="400px" height="400px" style="background-color:black"></canvas>
 			</div>
 
 			<div id="right-container">
-				<img id="goalImage" src="img/happyBanana.jpg"></img>
+				<canvas id="goalCanvas" width="200" height"200px" style="background-color:purple"></canvas>
 				<div id="text-container">
 					<span id="level">Level: 1</span>
 					<span id="score">Score: 0</span>
@@ -27,12 +27,18 @@
 				<button class="buttons" id="newGameButton" onclick="newGame()">New Game</button>
 			</div>
 
+			<img id="goalImage" src="img/happyBanana.jpg"></img>
 		</div>
+
 		<script type="text/javascript">
 		$(document).ready(newGame);
 		</script>
 		
 		<script src="canvas.js"></script>
+
+		<script src="gridCanvas.js"></script>
+		<script src="goalCanvas.js"></script>
+
 
 	</body>
 </html>

@@ -7,14 +7,14 @@ var colourMap = {
 	5 : '#EDEDED'
 };
 
-var canvas = document.getElementById("gridCanvas");
+var canvas = document.getElementById("goalCanvas");
 var context = canvas.getContext("2d");
 
-function clearBoard(){
+function clearGoalBoard(){
 	context.clearRect(0,0, canvas.width, canvas.height);
 }
 
-function drawBoard(array){
+function drawGoalBoard(array){
 	var numSquaresPerRow = array.length;
 	var boxDim = canvas.width / numSquaresPerRow;
 

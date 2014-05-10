@@ -262,7 +262,8 @@ function updateCanvas() {
 }
 
 function updateOriginalImage() {
-
+	clearGoalBoard();
+	drawGoalBoard(originalPattern);
 }
 
 function updateScore(){
