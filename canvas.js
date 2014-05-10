@@ -19,7 +19,7 @@ function clearBoard(){
 	context.clearRect(0,0, canvas.width, canvas.height);
 }
 
-function drawBoard($array){
+function drawBoard(array){
 for (var x = 0; x < canvas.width; x += boxDim) {
 	for (var y = 0; y < canvas.height; y += boxDim) {
 		context.fillStyle = colourMap[array[x/boxDim][y/boxDim]];
@@ -46,5 +46,5 @@ context.stroke();
 }
 
 clearBoard();
-drawBoard(drawBoard);
+drawBoard(blockArray);
 outlineBoard();
