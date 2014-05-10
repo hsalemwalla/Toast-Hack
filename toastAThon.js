@@ -1,20 +1,103 @@
-// Global variables
-originalPattern[][]
-playerPattern[][]
-level
-score
-numOfMoves
-gridLength
+// Score and level is consistant throughout app life
+var score;
+var level;
 
 
-// Methods
-init()
-isPatternCorrect()	// Increment numOfMoves
-scramblePattern()
-eventListener()
+// Following global variables are updated every level
+var originalPattern;
+var playerPattern;
+var numOfMoves;
+
+function newGame() {
+	initEventHandlers();
+	beginLevel(1);	// Begin level 1
+}
+
+function beginLevel(nextLevel) {
+	// set level
+	level = nextLevel;
+
+	// set gridLength
+	gridLength = level + 3;	// Level: 1 --> gridLength: 4
+	
+	// Create two arrays and init them to 0
+	originalPattern = initArray(gridLength);
+	playerPattern = initArray(gridLength);	// MAY NOT NEED TO DO
+
+	// Reset number of player moves
+	numOfMoves = 0;
+
+	// generatePattern();
+	// scramblePattern();
+}
+
+function initEventHandlers() {
+	// Init the key press event handlers
+}
+
+function initArray(length) {
+	var array = new Array(length);
+	for(int i = 0; i < gridLength; i++) {
+		array[i] = new Array(gridLength);
+	}
+	return array;
+}
+
+function isPatternCorrect() {
+	// Check if the player array is identical to the original array
+
+	// May need to access the length of one array dimension
+	for(var i = 0; i < gridLength; i++) {
+		for(var j = 0; j < gridLength; i++) {
+			// Iterate through the array, if any value is not equal, return false
+			if(originalPattern[i][j] != playerPattern[i][j]) {
+				return false;
+			}
+		}
+	}
+	// All values are identical
+	// Level is over
+	levelCompleted();
+	return true;
+}
+
+function generatePattern() {
+
+}
+
+function scramblePattern() {
+	// The number of scrambles we apply to a pattern is consta
+	var NUM_OF_SCRAMBLES = 100;
+
+	var nextMove = 0;
+
+	for(var i = 0; i < NUM_OF_SCRAMBLES; i++) {
+		// Might need to modify '4'
+		nextMove = Math.floor(Math.random() * 4);
+		switch(nextMove) {
+			case 0: // Up
+				upShift();
+				break;
+			case 1: // Right
+				rightShift();
+				break;
+			case 2: // Down
+				downShift();
+				break;
+			case 3: // Left
+				leftShift();
+				break;
+			default:
+				// Used to catch error in random number generation
+				upShift();
+		}
+	}
+	return;
+}
+
 
 // Callbacks for button presses
-function leftShift(){
+function leftShift() {
 	var tempVal;
 	for ( var i=0; i<gridLength; i++){
 		tempRow = playerPattern[i][0];
@@ -30,7 +113,7 @@ function leftShift(){
 	}
 }
 
-function rightShift(){
+function rightShift() {
 	var tempVal;
 	for ( var i=0; i<gridLength; i++){
 		tempRow = playerPattern[i][gridLength -1];
@@ -46,7 +129,7 @@ function rightShift(){
 	}
 }
 
-function upShift(){
+function upShift() {
 	var tempVal;
 	for ( var i=0; i<gridLength; i++){
 		tempRow = playerPattern[0][i];
@@ -62,7 +145,7 @@ function upShift(){
 	}
 }
 
-function downShift(){
+function downShift() {
 	var tempVal;
 	for ( var i=0; i<gridLength; i++){
 		tempRow = playerPattern[gridLength-1][i];
@@ -78,13 +161,30 @@ function downShift(){
 	}
 }
 
-function generatePattern(){
 
-}
 
 function scoreCalculator() {
-
+	
 }
 
-function updateScore()
-function updateGraphics()
+function levelCompleted() {
+	// Calculate score
+	// 
+	// begin next level
+}
+
+function getOriginalArray() {
+	return originalPattern;
+}
+
+function getPlayerArray() {
+	return playerPattern;
+}
+
+function getScore() {
+	return score();
+}
+
+function getLevel() {
+	return level;
+}
