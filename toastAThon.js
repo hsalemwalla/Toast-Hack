@@ -1,14 +1,14 @@
 // Global variables
-var originalPattern = [][];
-var playerPattern = [][];
-var playerPatternUnmodified = [][];
+var originalPattern = [[]];
+var playerPattern = [[]];
+var playerPatternUnmodified = [[]];
 var level;
 var score;
 var gridLength;
 var numOfMoves;
 
-const var LEVEL_SCORE_MODIFIER = 5432;
-const var MOVEMENT_SCORE_MODIFIER = 1;
+const LEVEL_SCORE_MODIFIER = 5432;
+const MOVEMENT_SCORE_MODIFIER = 1;
 
 function newGame() {
 	initEventHandlers();
@@ -19,6 +19,7 @@ function beginLevel(nextLevel) {
 	if(nextLevel != undefined) {
 		// Next level to play is passed in
 		level = nextLevel;
+		console.log("reset");
 	} else {
 		// Reset level
 		playerPattern = playerPatternUnmodified;
@@ -38,6 +39,9 @@ function beginLevel(nextLevel) {
 	// Reset number of player moves
 	numOfMoves = 0;
 
+	// Set score to 0
+	score = 0;
+
 	generatePattern();
 	scramblePattern();
 
@@ -46,12 +50,14 @@ function beginLevel(nextLevel) {
 }
 
 function initEventHandlers() {
-	// Init the key press event handlers
+	$(document).keydown(onKeyPress);
+	// $('#canvas').on('keypress', onKeyPress);
+	$('#resetButton').click(beginLevel);
 }
 
 function initArray(length) {
 	var array = new Array(length);
-	for(int i = 0; i < gridLength; i++) {
+	for(var i = 0; i < gridLength; i++) {
 		array[i] = new Array(gridLength);
 	}
 	return array;
@@ -79,9 +85,9 @@ function isPatternCorrect() {
 
 function generatePattern(){
 	if(gridLength % 2 === 0) {
-		for (var i = 0; i < gridLength; i--) {	//this will handle the first diagonal
+		for (var i = 0; i < gridLength; i++) {	//this will handle the first diagonal
 			for(var j = 0; j < gridLength; j++){
-				if (i === j || ) {
+				if (i === j) {
 					originalPattern[i][j] = 1;
 				} else {
 					originalPattern[i][j] = 0;
@@ -92,8 +98,8 @@ function generatePattern(){
 			originalPattern[k][gridLength - 1 - k] = 1;
 		}
 	} else {
-		var center = ceil(gridLength/2);
-		for (var i = 0; i < gridLength; i--) {
+		var center = Math.ceil(gridLength/2);
+		for (var i = 0; i < gridLength; i++) {
 			for(var j = 0; j < gridLength; j++){
 				if (i === center || j === center) {
 					originalPattern[i][j] = 1;
@@ -103,6 +109,7 @@ function generatePattern(){
 			}
 		}
 	}
+	playerPattern = originalPattern;
 }
 
 function scramblePattern() {
@@ -134,19 +141,43 @@ function scramblePattern() {
 	}
 	// Store the initial player array state
 	playerPatternUnmodified = playerPattern;
-	return;
 }
 
+function onKeyPress(event){
+	console.log("a button has been pressed!");
+	console.log(score);
+
+	switch(event.which){
+		case 38: 
+			upShift();
+			break;
+		case 39: 
+			rightShift();
+			break;
+		case 40: 
+			downShift();
+			break;
+		case 37:
+			leftShift();
+			break;
+		default:
+			break;
+	}
+
+	updateCanvas();
+	isPatternCorrect();
+	updateScore();
+}
 
 // Callbacks for button presses
-function leftShift() {
+function upShift() {
 	var tempVal;
 	for ( var i=0; i<gridLength; i++){
 		tempRow = playerPattern[i][0];
 
 		for ( var j=0; j<gridLength; j++ ){
 			//last case
-			if(j === (gridLength -1){
+			if(j === (gridLength -1)){
 				playerPattern[i][gridLength-1] = tempRow;
 			} else {
 				playerPattern[i][j] = playerPattern[i][j+1];
@@ -155,7 +186,7 @@ function leftShift() {
 	}
 }
 
-function rightShift() {
+function downShift() {
 	var tempVal;
 	for ( var i=0; i<gridLength; i++){
 		tempRow = playerPattern[i][gridLength -1];
@@ -171,7 +202,7 @@ function rightShift() {
 	}
 }
 
-function upShift() {
+function leftShift() {
 	var tempVal;
 	for ( var i=0; i<gridLength; i++){
 		tempRow = playerPattern[0][i];
@@ -187,7 +218,7 @@ function upShift() {
 	}
 }
 
-function downShift() {
+function rightShift() {
 	var tempVal;
 	for ( var i=0; i<gridLength; i++){
 		tempRow = playerPattern[gridLength-1][i];
@@ -212,7 +243,7 @@ function levelCompleted() {
 	// Show level complete screen
 
 	// Add a bonus to the user score
-	score += LEVEL_SCORE_MODIFIER;
+	score += LEVEL_SCORE_MODIFIER * getLevel();
 	// Begin the next level
 	beginLevel(level+1);
 }
@@ -226,20 +257,23 @@ function updateAll() {
 }
 
 function updateCanvas() {
-
+	clearBoard();
+	drawBoard(playerPattern);
 }
 
 function updateOriginalImage() {
 
 }
 
-function updateScore() {
-
+function updateScore(){
+	$('#score').text("Score: " + getScore());
 }
+
 
 function updateLevel() {
-
+	$('#level').text("Level #" + getLevel());
 }
+
 
 function getOriginalArray() {
 	return originalPattern;
@@ -250,7 +284,7 @@ function getPlayerArray() {
 }
 
 function getScore() {
-	return score();
+	return score;
 }
 
 function getLevel() {
