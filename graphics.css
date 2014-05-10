@@ -16,17 +16,6 @@
 #left-container {
 	outline: solid #A4DEEB;
 	float: left;
-	width: 50%;
-	height: 80%;
-}
-
-#left-container div {
-	outline: solid #A4DEEB;
-	float: left;
-    width: 25%;
-    height: 25%;
-    display:block;
-    overflow:hidden;
 }
 
 #right-container {
@@ -34,31 +23,6 @@
 	float: right;
 	width: 40%;
 	height: 80%;
-
-}
-
-.square0 { /* RED */
-	background-color: #FF5454;
-}
-
-.square1 { /* ORANGE */
-	background-color: #FFAA3B;
-}
-
-.square2 { /* fuck yellow. GREEN */
-	background-color: #D1FF54;
-}
-
-.square3 {	/* BLUE */
-	background-color: #52A8FF;
-}
-
-.square4 { /* VIOLET */
-	background-color: #CF4DFF;
-}
-
-.square5 { /* WHITE */
-	background-color: #EDEDED;
 }
 
 #goalImage {
