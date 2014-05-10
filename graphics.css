@@ -1,0 +1,75 @@
+* {
+	font-family:"Trebuchet MS", Helvetica, sans-serif;
+	background-color: #DBF8FF;
+}
+
+#main-container {
+	width: 50em;
+	margin: 3em auto;
+	height: 30em;
+}
+
+#heading {
+	height: 20%;
+}
+
+#left-container {
+	outline: solid #A4DEEB;
+	float: left;
+	width: 50%;
+	height: 80%;
+}
+
+#left-container div {
+	outline: solid #A4DEEB;
+	float: left;
+    width: 25%;
+    height: 25%;
+    display:block;
+    overflow:hidden;
+}
+
+#right-container {
+	background-color: #A4DEEB;
+	float: right;
+	width: 40%;
+	height: 80%;
+
+}
+
+.square0 { /* RED */
+	background-color: #FF5454;
+}
+
+.square1 { /* ORANGE */
+	background-color: #FFAA3B;
+}
+
+.square2 { /* fuck yellow. GREEN */
+	background-color: #D1FF54;
+}
+
+.square3 {	/* BLUE */
+	background-color: #52A8FF;
+}
+
+.square4 { /* VIOLET */
+	background-color: #CF4DFF;
+}
+
+.square5 { /* WHITE */
+	background-color: #EDEDED;
+}
+
+#goalImage {
+	max-width: 50%;
+	max-height: 50%;
+	margin: 10% 25%;
+	float: left;
+	border: solid #DBF8FF;
+}
+
+#right-container div {
+	clear: left;
+	margin-left: 15%;
+	background-color: inherit;
