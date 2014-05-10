@@ -1,0 +1,23 @@
+// Global variables
+originalPattern
+playerPattern
+level
+score
+numOfMoves
+
+// Methods
+init()
+isPatternCorrect()	// Increment numOfMoves
+scramblePattern()
+eventListener()
+
+// Callbacks for button presses
+leftShift()
+rightShift()
+upShift()
+downShift()
+
+generatePattern(level)
+scoreCalculator()
+updateScore()
+updateGraphics()
