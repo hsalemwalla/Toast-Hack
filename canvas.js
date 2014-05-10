@@ -10,7 +10,7 @@ var colourMap = {
 var blockArray = [[1,0,3,4],[4,2,3,1],[0,5,5,1],[5,0,1,5]];
 var numSquaresPerRow = blockArray.length;
 
-var canvas = document.getElementById("canvas");
+var canvas = document.getElementById("gridCanvas");
 var context = canvas.getContext("2d");
 
 var boxDim = canvas.width / numSquaresPerRow;
