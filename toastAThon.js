@@ -46,7 +46,9 @@ function beginLevel(nextLevel) {
 }
 
 function initEventHandlers() {
-	// Init the key press event handlers
+	$('#canvas').keyPress(onKeyPress);
+	$('#newGameButton').click(beginLevel);
+	$('#resetButton').click(beginLevel);
 }
 
 function initArray(length) {
@@ -134,9 +136,26 @@ function scramblePattern() {
 	}
 	// Store the initial player array state
 	playerPatternUnmodified = playerPattern;
-	return;
 }
 
+function onKeyPress(event){
+	switch(event.which){
+		case 38: 
+			upShift();
+			break;
+		case 39: 
+			rightShift();
+			break;
+		case 40: 
+			downShift();
+			break;
+		case 37:
+			leftShift();
+			break;
+		default:
+			break;
+	}
+}
 
 // Callbacks for button presses
 function leftShift() {
@@ -212,7 +231,7 @@ function levelCompleted() {
 	// Show level complete screen
 
 	// Add a bonus to the user score
-	score += LEVEL_SCORE_MODIFIER;
+	score += LEVEL_SCORE_MODIFIER * getLevel();
 	// Begin the next level
 	beginLevel(level+1);
 }
@@ -226,20 +245,22 @@ function updateAll() {
 }
 
 function updateCanvas() {
-
+	drawBoard(originalPattern);
 }
 
 function updateOriginalImage() {
 
 }
 
-function updateScore() {
-
+function updateScore(){
+	$('#score').text("Score: " + getScore());
 }
+
 
 function updateLevel() {
-
+	$('#level').text("Level #" + getLevel());
 }
+
 
 function getOriginalArray() {
 	return originalPattern;
