@@ -21,3 +21,34 @@ generatePattern(level)
 scoreCalculator()
 updateScore()
 updateGraphics()
+
+
+
+
+// TODO
+Update scramble method
+	Ensure left and right shift work
+
+Implement updateOriginalPattern method (to display original array)
+
+Implement functionality for level completed
+	Brief acknowledgment and immediate load next level
+
+Fix updateScore
+
+Determine better scoring system
+
+Instruction text below page
+
+Cleanup UI 
+	Blue box should be the same height as canvas
+	Buttons and labels should line up properly
+	Narrow blue box
+	Expand canvas
+
+Resize document based on browser window
+	Disable horizontal scrolling
+	Minimize vertical scrolling
+
+Generate name
+

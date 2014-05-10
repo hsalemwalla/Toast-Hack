@@ -68,9 +68,9 @@ function isPatternCorrect() {
 
 	// May need to access the length of one array dimension
 	for(var i = 0; i < gridLength; i++) {
-		for(var j = 0; j < gridLength; i++) {
+		for(var j = 0; j < gridLength; j++) {
 			// Iterate through the array, if any value is not equal, return false
-			if(originalPattern[i][j] != playerPattern[i][j]) {
+			if(originalPattern[i][j] !== playerPattern[i][j]) {
 				// Increase the number of moves and add score
 				numOfMoves++;
 				scoreCalculator();		
