@@ -1,10 +1,10 @@
 // Global variables
 var originalPattern = [][];
 var playerPattern = [][];
+var playerPatternUnmodified = [][];
 var level;
 var score;
 var gridLength;
-var playerPattern;
 var numOfMoves;
 
 const var LEVEL_SCORE_MODIFIER = 5432;
@@ -16,8 +16,17 @@ function newGame() {
 }
 
 function beginLevel(nextLevel) {
-	// set level
-	level = nextLevel;
+	if(nextLevel != undefined) {
+		// Next level to play is passed in
+		level = nextLevel;
+	} else {
+		// Reset level
+		playerPattern = playerPatternUnmodified;
+		// Reset score
+		score -= 5*MOVEMENT_SCORE_MODIFIER*numOfMoves;
+		numOfMoves = 0;
+		updateAll();
+	}
 
 	// set gridLength
 	gridLength = level + 3;	// Level: 1 --> gridLength: 4
@@ -29,8 +38,11 @@ function beginLevel(nextLevel) {
 	// Reset number of player moves
 	numOfMoves = 0;
 
-	// generatePattern();
-	// scramblePattern();
+	generatePattern();
+	scramblePattern();
+
+	// TODO: Update screen with new level data
+	updateAll() 
 }
 
 function initEventHandlers() {
@@ -53,6 +65,9 @@ function isPatternCorrect() {
 		for(var j = 0; j < gridLength; i++) {
 			// Iterate through the array, if any value is not equal, return false
 			if(originalPattern[i][j] != playerPattern[i][j]) {
+				// Increase the number of moves and add score
+				numOfMoves++;
+				scoreCalculator();		
 				return false;
 			}
 		}
@@ -60,15 +75,38 @@ function isPatternCorrect() {
 	// All values are identical
 	// Level is over
 	levelCompleted();
-	return true;
 }
 
-function generatePattern() {
-
+function generatePattern(){
+	if(gridLength % 2 === 0) {
+		for (var i = 0; i < gridLength; i--) {	//this will handle the first diagonal
+			for(var j = 0; j < gridLength; j++){
+				if (i === j || ) {
+					originalPattern[i][j] = 1;
+				} else {
+					originalPattern[i][j] = 0;
+				}
+			}
+		}
+		for(var k = 0; k < gridLength; k++){
+			originalPattern[k][gridLength - 1 - k] = 1;
+		}
+	} else {
+		var center = ceil(gridLength/2);
+		for (var i = 0; i < gridLength; i--) {
+			for(var j = 0; j < gridLength; j++){
+				if (i === center || j === center) {
+					originalPattern[i][j] = 1;
+				} else {
+					originalPattern[i][j] = 0;
+				}
+			}
+		}
+	}
 }
 
 function scramblePattern() {
-	// The number of scrambles we apply to a pattern is consta
+	// The number of scrambles we apply to a pattern is constant
 	var NUM_OF_SCRAMBLES = 100;
 
 	var nextMove = 0;
@@ -94,6 +132,8 @@ function scramblePattern() {
 				upShift();
 		}
 	}
+	// Store the initial player array state
+	playerPatternUnmodified = playerPattern;
 	return;
 }
 
@@ -163,46 +203,42 @@ function downShift() {
 	}
 }
 
-function generatePattern(){
-	if(gridLength % 2 === 0) {
-		for (var i = 0; i < gridLength; i--) {	//this will handle the first diagonal
-			for(var j = 0; j < gridLength; j++){
-				if (i === j || ) {
-					originalPattern[i][j] = 1;
-				} else {
-					originalPattern[i][j] = 0;
-				}
-			}
-		}
-		for(var k = 0; k < gridLength; k++){
-			originalPattern[k][gridLength - 1 - k] = 1;
-		}
-	} else {
-		var center = ceil(gridLength/2);
-		for (var i = 0; i < gridLength; i--) {
-			for(var j = 0; j < gridLength; j++){
-				if (i === center || j === center) {
-					originalPattern[i][j] = 1;
-				} else {
-					originalPattern[i][j] = 0;
-				}
-			}
-		}
-}
-
 function scoreCalculator() {
 	score += 5*MOVEMENT_SCORE_MODIFIER;
 }	
 
 
-function scoreCalculator() {
-	
+function levelCompleted() {
+	// Show level complete screen
+
+	// Add a bonus to the user score
+	score += LEVEL_SCORE_MODIFIER;
+	// Begin the next level
+	beginLevel(level+1);
 }
 
-function levelCompleted() {
-	// Calculate score
-	// 
-	// begin next level
+
+function updateAll() {
+	updateCanvas();
+	updateOriginalImage();
+	updateScore();
+	updateLevel();
+}
+
+function updateCanvas() {
+
+}
+
+function updateOriginalImage() {
+
+}
+
+function updateScore() {
+
+}
+
+function updateLevel() {
+
 }
 
 function getOriginalArray() {
