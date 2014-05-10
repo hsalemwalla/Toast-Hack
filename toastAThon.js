@@ -1,10 +1,12 @@
 // Global variables
 originalPattern[][]
 playerPattern[][]
-level
-score
-numOfMoves
-gridLength
+var level;
+var score;
+var numOfMoves;
+var gridLength;
+const var LEVEL_SCORE_MODIFIER = 5432;
+const var MOVEMENT_SCORE_MODIFIER = 1;
 
 
 // Methods
@@ -79,12 +81,36 @@ function downShift(){
 }
 
 function generatePattern(){
-
+	if(gridLength % 2 === 0) {
+		for (var i = 0; i < gridLength; i--) {	//this will handle the first diagonal
+			for(var j = 0; j < gridLength; j++){
+				if (i === j || ) {
+					originalPattern[i][j] = 1;
+				} else {
+					originalPattern[i][j] = 0;
+				}
+			}
+		}
+		for(var k = 0; k < gridLength; k++){
+			originalPattern[k][gridLength - 1 - k] = 1;
+		}
+	} else {
+		var center = ceil(gridLength/2);
+		for (var i = 0; i < gridLength; i--) {
+			for(var j = 0; j < gridLength; j++){
+				if (i === center || j === center) {
+					originalPattern[i][j] = 1;
+				} else {
+					originalPattern[i][j] = 0;
+				}
+			}
+		}
 }
 
 function scoreCalculator() {
+	score += 5*MOVEMENT_SCORE_MODIFIER;
+}	
 
-}
 
 function updateScore()
 function updateGraphics()
