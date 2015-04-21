@@ -13,7 +13,7 @@ graphics -> canvas (game screen)
 
 
 
-GitHub Pages: http://hsalemwalla.github.io/toast
+GitHub Pages: http://hsalemwalla.github.io/Toast-Hack
 
 Anything pushed to the <code>gh-pages</code> branch will automatically be uploaded to the link above. 
 Keeping this seperate from the <code>master</code> branch. 
